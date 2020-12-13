@@ -1,5 +1,5 @@
 import React from 'react'; // 리액트 문법 사용
-
+import Student from './Student'; // student props불러옴 컴포넌트 
 
 
 function App() {
@@ -17,7 +17,10 @@ function App() {
     <>
       
       <div style={style}>{text}</div>
-    
+      <Student name ="김을동" color="color"></Student>{/* Student 컴퍼넌트를 가져옴 */}
+      <Student name ="이순신" color="green"></Student>
+      <Student name ="김이박" color="brown"></Student>
+      <Student/> {/*default 값 가져옴 */}
     </>
       
   );
