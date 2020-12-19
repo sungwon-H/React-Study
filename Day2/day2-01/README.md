@@ -27,6 +27,8 @@
 
 
 
+[**spread시트문법**](#스프레드시트-문법)
+
 </br>
 </br>
 
@@ -353,3 +355,79 @@
                         });
                     }
                 ```
+----
+  
+
+
+
+
+
+
+
+
+<br/>
+
+
+
+### 스프레드시트 문법
+
+<br/>
+
+
+- **1_spread.js code**
+
+    ```jsx
+    const dog = {
+        name: '루시'
+    };
+    const cuteDog = {
+        ...dog, // 스프레드시트 방법 
+        age:9
+    }
+
+    const whiteCuteDog = {
+        ...cuteDog,
+        color:'white'
+    };
+
+    console.log(dog);
+    console.log(cuteDog);
+    console.log(whiteCuteDog);
+
+    console.log('-------------------------');
+
+    const stduent = ['김사과','오렌지','반하나','이메론'];
+    const addStudent = [...stduent,'홍길동'];
+    console.log(stduent);
+    console.log(addStudent);
+    ```
+
+    - (...복사해올 변수명)을 사용할 객체에 입력한다.
+
+        ```jsx
+        const dog = {
+            name: '루시'
+        };
+        const cuteDog = {
+            ...dog, // 스프레드시트 방법 
+            age:9
+        }
+
+        //     콘솔 창
+
+            { name: '루시' }
+            { name: '루시', age: 9 }
+        ```
+
+    - 배열에서 사용법
+
+        ```jsx
+        const stduent = ['김사과','오렌지','반하나','이메론'];
+        const addStudent = [...stduent,'홍길동'];
+        console.log(stduent);
+        console.log(addStudent);
+
+        // 콘솔 창 
+        [ '김사과', '오렌지', '반하나', '이메론' ]
+        [ '김사과', '오렌지', '반하나', '이메론', '홍길동' ]
+        ```
