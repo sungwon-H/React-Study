@@ -1,70 +1,144 @@
-# Getting Started with Create React App
+# React Day2 공부자료   
+<br />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Hooks 상태관리함수   
 
-## Available Scripts
+<br />
+  
+<br/>
 
-In the project directory, you can run:
+### useState, useRef, useEffcet,의 예제자료
+   
+<br/><br/>
 
-### `npm start`
+- 설명 블로그 링크 : <https://develop-hsw9058.tistory.com/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br><br>
 
-### `npm run build`
+# 목차
+[1.InputTest_1 [예제] ](#InputTest1.예제 )
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+</br></br></br></br></br></br></br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## InputTest1.예제
+-----
+-   **App.js code**
 
-### Analyzing the Bundle Size
+    ```jsx
+    import React from 'react';
+        import InputTest from './InputTest';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+        function App() {
+        return (
+            <div>
+            <InputTest/>
+            </div>
+        );
+        }
 
-### Making a Progressive Web App
+    export default App;
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    - 리액트 모듈사용 함수
 
-### Advanced Configuration
+        ```jsx
+        import React from 'react';
+        ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    - InputTest 컴포넌트 사용
 
-### Deployment
+        ```jsx
+        import InputTest from './InputTest';
+        ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    - InputTest 컴포넌트를 화면에 출력해주기 & App 컴포넌트 외부 사용 해주는 코드
 
-### `npm run build` fails to minify
+        ```jsx
+        function App() {
+          return (
+            <div>
+              <InputTest/>
+            </div>
+          );
+        }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+        export default App; 
+        ```
+
+- **InputTest.js code**
+
+    ```jsx
+    import React,{useState} from 'react'; // 리액트 모듈 사용 , useState hooks 상태관리 함수 사용 
+
+        function InputTest(){ // InpunTest 컴포넌트 생성
+            const [text, setText] = useState(''); // 기본값 샛팅 text='' 변화를 주려면 setText함수를 사용해야한다
+            
+            const onChange = (e) => { // onChange 값을 변경하는  이벤트 생성 
+                setText(e.target.value); // e.target.value 
+            }
+            const onReset = () => { // onReset함수 실행되면 공백으로 변함
+                setText('');
+            }
+            return(
+                <div>
+                    <input onChange={onChange} value={text}/>       {/*value 값이 있어야 값이 초기화된다.*/}
+                    <button onClick={onReset}>초기화</button>
+                    <div>
+                        <b>값 : {text}</b>
+                    </div>
+                </div>
+                
+            )
+        }
+
+    export default InputTest;
+    ```
+
+    - **리액트 모듈 사용 및 useState (Hooks)상태 관리 함수 모듈 사용**
+
+        ```jsx
+        import React,{useState} from 'react'; // 리액트 모듈 사용 , useState hooks 상태관리 함수 사용 
+        ```
+
+    - **InputTest 컴포넌트 생성 및 외부 사용 코드**
+
+        ```jsx
+        function InputTest(){ // InpunTest 컴포넌트 생성
+            const [text, setText] = useState(''); // 기본값 샛팅 text='' 변화를 주려면 setText함수를 사용해야한다
+            
+            const onChange = (e) => { // onChange 값을 변경하는  이벤트 생성 
+                setText(e.target.value); // e.target.value 
+            }
+            const onReset = () => { // onReset함수 실행되면 공백으로 변함
+                setText('');
+            }
+            return(
+                <div>
+                    <input onChange={onChange} value={text}/>       {/*value 값이 있어야 값이 초기화된다.*/}
+                    <button onClick={onReset}>초기화</button>
+                    <div>
+                        <b>값 : {text}</b>
+                    </div>
+                </div>
+                
+            );
+        }
+
+        export default InputTest;
+        ```
+
+ 
