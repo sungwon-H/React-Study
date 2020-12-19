@@ -17,15 +17,15 @@
 <br/><br/>
 
 # 목차
-1. [InputTest_1 [예제] ](#input-예제-(1))
+1. [InputTest_1](#inputtest1-예제)
 
-2. [InputTest_2 [예제] ](#input-예제-(2))
+2. [InputTest_2](#inputtest2-예제)
 
-3. [InputTest_3 [예제] ](#input-예제-(3))
+3. [InputTest_3](#inputtest3-예제)
 
-4. [UserList_1 [예제] ](#userlist.예제)
+4. [UserList_1](#userlist1-예제)
 
-5. [UserList_2 [예제] ](#userlist2.예제) (추후 재 업로드 )
+5. [UserList_2](#userlist2.예제) (추후 재 업로드 )
 
 
  
@@ -49,7 +49,7 @@
 
 
 
-## Input 예제 (1)
+## InputTest1 예제
 
 <br/>
 
@@ -162,7 +162,7 @@
 </br>
 </br>
 
- ## Input 예제 (2)
+ ## InputTest2 예제
 
 
 </br>
@@ -365,7 +365,7 @@
 ----
 <br/>
 
-## Input 예제 (3)
+## InputTest3 예제
 
  <br/>
 
@@ -590,7 +590,7 @@
 
 <br/>
 
-## UserList.예제
+## UserList1 예제
 
 <br/>
 
@@ -899,7 +899,7 @@
 ---
 <br/>
 
-## userlist2.예제
+## UserList2 예제
  
  <br>
 
