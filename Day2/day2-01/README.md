@@ -19,8 +19,8 @@
 <br><br>
 
 # 목차
-[1.InputTest_1 [예제] ](#InputTest1.예제 ) </br>
-[2.InputTest_2 [예제] ](#InputTest2.예제 )
+[1.InputTest_1 [예제] ](#inputtest1.예제 )  
+[2.InputTest_2 [예제] ](#inputtest2.예제 )
 
 
 
@@ -34,7 +34,8 @@
 
 </br>
 </br>
-</br>
+</br>  
+
 
 
 
@@ -154,7 +155,7 @@
 
  ## InputTest2.예제
  ---
- 
+
 </br>
 
 - **App.js code**
