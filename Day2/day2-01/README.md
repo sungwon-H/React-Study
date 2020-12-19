@@ -7,7 +7,7 @@
   
 <br/>
 
-### useState, useRef, useEffcet,의 예제자료
+### useState, useRef, useEffcet 의 예제자료
    
 <br/><br/>
 
@@ -16,17 +16,23 @@
 
 
 
-<br><br>
+<br/><br/>
 
 # 목차
-[1.InputTest_1 [예제] ](#inputtest1.예제 )  
+1. [InputTest_1 [예제] ](#InputTest1.예제 )  
 
-[2.InputTest_2 [예제] ](#inputtest2.예제 )
+2. [InputTest_2 [예제] ](#inputtest2.예제 )
 
-[3.InputTest_3 [예제] ](#inputtest3.예제 )
+3. [InputTest_3 [예제] ](#inputtest3.예제 )
+
+4. [UserList [예제] ](#UserList.예제 )
 
 
-[**spread시트문법**](#스프레드시트-문법)
+ 
+
+</br>
+
+- [**spread시트문법**](#스프레드시트-문법)
 
 </br>
 </br>
@@ -583,9 +589,314 @@
 
 
 <br/>
+
+## UserList.예제
+
 <br/>
 
+- **App.js code**
 
+    ```jsx
+    import React from 'react';
+    import UserList from './UserList'
+
+    function App() {
+      return (
+        <>
+          <UserList/>
+        </>
+      );
+    }
+
+    export default App;
+    ```
+
+    - 리액트 모듈사용 함수
+
+        ```jsx
+        import React from 'react';
+        ```
+
+    - UserList 컴포넌트 사용
+
+        ```jsx
+        import UserList from './UserList'
+        ```
+
+    - UserList 컴포넌트를 화면에 출력해주기 & App 컴포넌트 외부 사용 해주는 코드
+
+        ```jsx
+        function App() {
+          return (
+            <>
+              <UserList/>
+            </>
+          );
+        }
+
+        export default App;
+        ```
+
+- **UserList.js code**
+
+    ```jsx
+    import React from 'react';
+
+    function User({user}){ // User 컴퍼넌트 아래 userList가져옴 
+        return(
+            <div>
+                <b>{user.userid}</b> <span>({user.email})</span> {/*users 객체의 userid, email정보 가져옴 */}
+            </div>
+        )
+    }
+    function UserList(){ // 유저 리스트 컴퍼넌트 
+        const users = [ // 유저 객체 
+            {
+                id:1,
+                userid:'apple',
+                name:'김사과',
+                email:'apple@apple.com'
+            },
+            {
+                id:2,
+                userid:'banana',
+                name:'반하나',
+                email:'banana@banana.com'
+            },
+            {
+                id:3,
+                userid:'melon',
+                name:'이메론',
+                email:'melon@melon.com'
+            },
+            {
+                id:4,
+                userid:'orange',
+                name:'오렌지',
+                email:'orange@orange.com'
+            },
+            {
+                id:5,
+                userid:'berry',
+                name:'박배리',
+                email:'berry@berry.com'
+            },
+        ];
+        return(
+            <div>
+                <div>
+                    {/* <User user={users[0]}/>  
+                    <User user={users[1]}/> 
+                    <User user={users[2]}/> 
+                    <User user={users[3]}/>
+                    <User user={users[4]}/> */}
+                    {users.map(user =>( // map를 사용하여 users의 배열을 순차적으로 찍어준다 
+                        <User user={user}/> // 
+                    ))}
+                </div>
+            </div>
+        )
+    }
+    export default UserList;
+    ```
+
+    - **리액트 모듈 사용 및 useState (Hooks)상태 관리 함수 모듈 사용**
+
+        ```jsx
+        import React from 'react';
+        ```
+
+    - **InputTest3 컴포넌트 생성 및 외부 사용 코드**
+
+        ```jsx
+        function User({user}){ // User 컴퍼넌트 아래 userList가져옴 
+            return(
+                <div>
+                    <b>{user.userid}</b> <span>({user.email})</span> {/*users 객체의 userid, email정보 가져옴 */}
+                </div>
+            )
+        }
+        function UserList(){ // 유저 리스트 컴퍼넌트 
+            const users = [ // 유저 객체 
+                {
+                    id:1,
+                    userid:'apple',
+                    name:'김사과',
+                    email:'apple@apple.com'
+                },
+                {
+                    id:2,
+                    userid:'banana',
+                    name:'반하나',
+                    email:'banana@banana.com'
+                },
+                {
+                    id:3,
+                    userid:'melon',
+                    name:'이메론',
+                    email:'melon@melon.com'
+                },
+                {
+                    id:4,
+                    userid:'orange',
+                    name:'오렌지',
+                    email:'orange@orange.com'
+                },
+                {
+                    id:5,
+                    userid:'berry',
+                    name:'박배리',
+                    email:'berry@berry.com'
+                },
+            ];
+            return(
+                <div>
+                    <div>
+                        {/* <User user={users[0]}/>  
+                        <User user={users[1]}/> 
+                        <User user={users[2]}/> 
+                        <User user={users[3]}/>
+                        <User user={users[4]}/> */}
+                        {users.map(user =>( // map를 사용하여 users의 배열을 순차적으로 찍어준다 
+                            <User user={user}/> // 
+                        ))}
+                    </div>
+                </div>
+            )
+        }
+        export default UserList
+        ```
+
+        - 객체로 만든 회원리스트 컴퍼넌트 code
+
+            ```jsx
+            function UserList(){ // 유저 리스트 컴퍼넌트 
+                const users = [ // 유저 객체 
+                    {
+                        id:1,
+                        userid:'apple',
+                        name:'김사과',
+                        email:'apple@apple.com'
+                    },
+                    {
+                        id:2,
+                        userid:'banana',
+                        name:'반하나',
+                        email:'banana@banana.com'
+                    },
+                    {
+                        id:3,
+                        userid:'melon',
+                        name:'이메론',
+                        email:'melon@melon.com'
+                    },
+                    {
+                        id:4,
+                        userid:'orange',
+                        name:'오렌지',
+                        email:'orange@orange.com'
+                    },
+                    {
+                        id:5,
+                        userid:'berry',
+                        name:'박배리',
+                        email:'berry@berry.com'
+                    },
+                ];
+                return(
+                    <div>
+                        <div>
+                            {/* <User user={users[0]}/>  
+                            <User user={users[1]}/> 
+                            <User user={users[2]}/> 
+                            <User user={users[3]}/>
+                            <User user={users[4]}/> */}
+                            {users.map(user =>( // map를 사용하여 users의 배열을 순차적으로 찍어준다 
+                                <User user={user}/> // 
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+            ```
+
+            - 회원정보 객체 만들기
+
+                ```jsx
+                const users = [ // 유저 객체 
+                        {
+                            id:1,
+                            userid:'apple',
+                            name:'김사과',
+                            email:'apple@apple.com'
+                        },
+                        {
+                            id:2,
+                            userid:'banana',
+                            name:'반하나',
+                            email:'banana@banana.com'
+                        },
+                        {
+                            id:3,
+                            userid:'melon',
+                            name:'이메론',
+                            email:'melon@melon.com'
+                        },
+                        {
+                            id:4,
+                            userid:'orange',
+                            name:'오렌지',
+                            email:'orange@orange.com'
+                        },
+                        {
+                            id:5,
+                            userid:'berry',
+                            name:'박배리',
+                            email:'berry@berry.com'
+                        },
+                    ];
+                ```
+
+                - 웹에 보일 부분
+
+                    ```jsx
+                    return(
+                            <div>
+                                <div>
+                                    {/* <User user={users[0]}/>  
+                                    <User user={users[1]}/> 
+                                    <User user={users[2]}/> 
+                                    <User user={users[3]}/>
+                                    <User user={users[4]}/> */}
+                                    {users.map(user =>( // map를 사용하여 users의 배열을 순차적으로 찍어준다 
+                                        <User user={user}/> // 
+                                    ))}
+                                </div>
+                            </div>
+                        )
+                    ```
+
+                - .map사용으로 정보를 순차적으로 보여준다.
+
+                    ```jsx
+                    {users.map(user =>( // map를 사용하여 users의 배열을 순차적으로 찍어준다 
+                                        <User user={user}/> 
+                    ))}
+                    ```
+
+            - users객체의 userid,email 값 가져오는 코드
+
+                ```jsx
+                function User({user}){ // User 컴퍼넌트 아래 userList가져옴 
+                    return(
+                        <div>
+                            <b>{user.userid}</b> <span>({user.email})</span> {/*users 객체의 userid, email정보 가져옴 */}
+                        </div>
+                    )
+                }
+                ```
+
+       
 
 ### 스프레드시트 문법
 

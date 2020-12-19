@@ -1,10 +1,10 @@
 import React from 'react';
-import InputTest3 from './InputTest3'
+import UserList from './UserList'
 
 function App() {
   return (
     <>
-      <InputTest3/>
+      <UserList/>
     </>
   );
 }
