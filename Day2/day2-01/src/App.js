@@ -1,11 +1,11 @@
 import React from 'react';
-import InputTest from './InputTest';
+import InputTest2 from './InputTest2'
 
 function App() {
   return (
-    <div>
-      <InputTest/>
-    </div>
+    <>
+      <InputTest2/>
+    </>
   );
 }
 
