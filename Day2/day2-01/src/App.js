@@ -1,10 +1,10 @@
 import React from 'react';
-import InputTest2 from './InputTest2'
+import InputTest3 from './InputTest3'
 
 function App() {
   return (
     <>
-      <InputTest2/>
+      <InputTest3/>
     </>
   );
 }

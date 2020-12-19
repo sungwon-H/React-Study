@@ -20,11 +20,10 @@
 
 # 목차
 [1.InputTest_1 [예제] ](#inputtest1.예제 )  
+
 [2.InputTest_2 [예제] ](#inputtest2.예제 )
 
-
-
-
+[3.InputTest_3 [예제] ](#inputtest3.예제 )
 
 
 [**spread시트문법**](#스프레드시트-문법)
@@ -45,7 +44,9 @@
 
 
 ## InputTest1.예제
------
+
+<br/>
+
 -   **App.js code**
 
     ```jsx
@@ -156,7 +157,7 @@
 </br>
 
  ## InputTest2.예제
- ---
+
 
 </br>
 
@@ -356,15 +357,232 @@
                     }
                 ```
 ----
-  
+<br/>
+
+## InputTest3.예제
+
+ <br/>
+
+
+  - **App.js code**
+
+    ```jsx
+    import React from 'react';
+    import InputTest3 from './InputTest3'
+
+    function App() {
+      return (
+        <>
+          <InputTest3/>
+        </>
+      );
+    }
+
+    export default App;
+    ```
+
+    - 리액트 모듈사용 함수
+
+        ```jsx
+        import React from 'react';
+        ```
+
+    - InputTest3 컴포넌트 사용
+
+        ```jsx
+        import InputTest2 from './InputTest3';
+        ```
+
+    - InputTest3 컴포넌트를 화면에 출력해주기 & App 컴포넌트 외부 사용 해주는 코드
+
+        ```jsx
+        function App() {
+          return (
+            <div>
+              <InputTest3/>
+            </div>
+          );
+        }
+
+        export default App; 
+        ```
+
+- **InputTest3.js code**
+
+    ```jsx
+    import React, {useState, useRef} from 'react';
+
+    function InputTest3(){
+        const [inputs, setInputs] = useState({
+            userid : '',
+            name: ''
+        });
+        const useridInput = useRef(); // useRef
+
+        const {userid, name} = inputs; // inputs에 userid, name 객체 값 저장 
+
+        const onChange = (e) => { // 이벤트가 실행되면 아래 input의 값이 들어가고  e 에 들어가거
+            const {value, name} = e.target; //    <input name="userid" value={userid} placeholder="아이디"/>
+            setInputs({
+                ...inputs,
+                [name]: value // 
+             });
+        }
+        const onReset = () => { // 초기화 이벤트
+            setInputs({ // 객체 자체를 비워줌 
+                userid:'',
+                name:''
+            });
+            useridInput.current.focus(); // 값이 초기화 된 후 useridinput창에 포커스 
+        }
+
+        return(
+            <div>
+                <input name="userid" value={userid} placeholder="아이디" onChange={onChange} ref={useridInput}/>
+                <input name="name" value={name} placeholder="이름" onChange={onChange}/>
+                <button onClick={onReset}>초기화</button>
+                <div>
+                    <b>값 : </b>
+                    {name}({userid})
+                </div>
+            </div> 
+        );
+    }
+
+    export default InputTest3;
+    ```
+
+    - **리액트 모듈 사용 및 useState (Hooks)상태 관리 함수 모듈 사용**
+
+        ```jsx
+        import React,{useState} from 'react'; // 리액트 모듈 사용 , useState hooks 상태관리 함수 사용 
+        ```
+
+    - **InputTest3 컴포넌트 생성 및 외부 사용 코드**
+
+        ```jsx
+        import React, {useState, useRef} from 'react';
+
+        function InputTest3(){
+            const [inputs, setInputs] = useState({
+                userid : '',
+                name: ''
+            });
+            const useridInput = useRef(); // useRef
+
+            const {userid, name} = inputs; // inputs에 userid, name 객체 값 저장 
+
+            const onChange = (e) => { // 이벤트가 실행되면 아래 input의 값이 들어가고  e 에 들어가거
+                const {value, name} = e.target; //    <input name="userid" value={userid} placeholder="아이디"/>
+                setInputs({
+                    ...inputs,
+                    [name]: value // 
+                 });
+            }
+            const onReset = () => { // 초기화 이벤트
+                setInputs({ // 객체 자체를 비워줌 
+                    userid:'',
+                    name:''
+                });
+                useridInput.current.focus(); // 값이 초기화 된 후 useridinput창에 포커스 
+            }
+
+            return(
+                <div>
+                    <input name="userid" value={userid} placeholder="아이디" onChange={onChange} ref={useridInput}/>
+                    <input name="name" value={name} placeholder="이름" onChange={onChange}/>
+                    <button onClick={onReset}>초기화</button>
+                    <div>
+                        <b>값 : </b>
+                        {name}({userid})
+                    </div>
+                </div> 
+            );
+        }
+
+        export default InputTest3;
+        ```
+
+        - useState Hooks 상태관리 함수 사용 코드
+
+            ```jsx
+            const [inputs, setInputs] = useState({
+                    userid : '',
+                    name: ''
+                });
+                const useridInput = useRef(); // useRef
+
+                const {userid, name} = inputs; // inputs에 userid, name 객체 값 저장 
+
+                const onChange = (e) => { // 이벤트가 실행되면 아래 input의 값이 들어가고  e 에 들어가거
+                    const {value, name} = e.target; //    <input name="userid" value={userid} placeholder="아이디"/>
+                    setInputs({
+                        ...inputs,
+                        [name]: value // 
+                     });
+                }
+                const onReset = () => { // 초기화 이벤트
+                    setInputs({ // 객체 자체를 비워줌 
+                        userid:'',
+                        name:''
+                    });
+                    useridInput.current.focus(); // 값이 초기화 된 후 useridinput창에 포커스 
+                }
+            ```
+
+            - 객체로 기본 값 만들기
+
+                ```jsx
+                const [inputs, setInputs] = useState({ // 기본 값을 객체형으로 여러가지 기본 값을 사용할 때
+                        userid: '',
+                        name: ''
+                    });
+                ```
+
+            - 객체 구조 분해(비구조화 할당)
+
+                ```jsx
+                const {userid, name} = inputs; // inputs에 userid, name 객체 값 저장 
+                ```
+
+            - useRef(React에서 DOM작업을 하기위한 React Hook 함수) 선언
+
+                ```jsx
+                const useridInput = useRef(); // useRef 
+                ```
+
+            - onChange 함수
+
+                ```jsx
+                const onChange = (e) =>{ // 값을 변경 하는 이벤트 
+                        const {value, name} = e.target; // return안에  input값가져옴 
+                        setInputs({ // 기본 값 변경
+                            ...inputs,
+                            [name]: value 
+                        });
+                    }
+                ```
+
+            - onReset 함수 (useridInput.current.focus() ) ⇒ useRef
+
+                ```jsx
+                const onReset = () => { // 초기화 이벤트
+                        setInputs({ // 객체 자체를 비워줌 
+                            userid:'',
+                            name:''
+                        });
+                        useridInput.current.focus(); // 값이 초기화 된 후 useridinput창에 포커스 
+                    }
+                ```
+
+
+---
 
 
 
 
 
-
-
-
+<br/>
 <br/>
 
 
