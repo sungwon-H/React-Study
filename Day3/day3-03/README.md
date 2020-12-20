@@ -592,7 +592,42 @@ $pink: #f06595;
         }
     }
     ```
+    - 버튼 사이즈
 
+        ```jsx
+        .Button{
+            display: inline-flex;
+            color:white;
+            font-weight: bold;
+            outline:none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+
+            //size2.
+            &.large{
+                height: 3rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                font-size: 1.25rem;
+            }
+            &.medium{
+                height: 2.25rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                font-size: 1rem;
+            }
+            &.small{
+                height: 1.75rem;
+                padding-left: 0.87rem;
+                padding-right: 1rem;
+                font-size: 1rem;
+            }
+        }
+        ```
+    
+    
+    
     - 버튼 양쪽 붙을 경우
 
         ```jsx
