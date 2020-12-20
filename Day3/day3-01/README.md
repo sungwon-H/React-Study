@@ -11,6 +11,10 @@
 ### useCallback 
 - 특정 함수를 새로 만들지 않고 재사용하고 싶을 때 사용합니다.
 
+### useReducer
+- 컴퍼넌트의 상태 업데이트 로직을 컴포넌트에서 분리시킬 수 있습니다.
+- 상태 업데이트 로직을 컴포넌트 외부에 작성할 수도 있고, 다른 파일에 작성 후 불러와서 사용할 수 있습니다.
+현재상태액션의 객체를 파라미터로받고 새로운상태로 바꾸는 함수 
 
 <br/><br/>
 
@@ -26,6 +30,10 @@
 1. [App.js](#app.js-code)
 2. [CreateUser.js](#CreateUser.js-code)
 3. [UserList.js](#UserList.js-code)
+
+### useReducer 예제
+
+1. [Counter.js](#Counter.js-code)
 
 </br>
 
@@ -681,3 +689,103 @@ export default React.memo(UserList);
     ```jsx
     export default React.memo(UserList);
     ```
+
+---
+
+</br>
+
+## Counter.js code
+
+</br>
+
+- **Counter.js code**
+
+    ```jsx
+    import React, {useReducer} from 'react'; // 리액트 모듈 사용
+
+    function reducer(state, action){ // state, action 값 받아옴
+        switch(action.type){ 
+            case 'PLUS': // 상태값
+                return state +1 
+            case 'MINUS':
+                return state -1;
+            default:
+                return state // 원래값 되돌려줌     
+        }
+    }
+
+    function Counter(){
+        const [number, dispatch] = useReducer(reducer,0); // dispatch는 액션을 발생시키는 함수 plus,minus를 발생 
+
+        const Plus = () => {
+            console.log('1을 더합니다.');
+            dispatch({type:'PLUS'}); //type 객체 plus를 불러준다.
+        }
+        const Minus =() =>{ // 호출된 함수 실행
+            console.log('1을 뺍니다');
+            dispatch({type:'MINUS'});
+        }
+
+    return(
+        <div>
+            <h2>{number}</h2>
+            <button onClick={Plus}>1 더하기</button>
+            <button onClick={Minus}>1 빼기</button> {/*함수를 호출*/ }
+        </div>
+    );
+    }
+    export default Counter;
+    ```
+
+    - 리액트 사용 및 useReducer Hook 모듈 사용 선언
+
+        ```jsx
+        import React, {useReducer} from 'react'; // 리액트 모듈 사용
+        ```
+
+    - reducer 함수 초기 셋팅
+
+        ```jsx
+        function reducer(state, action){ // state, action 값 받아옴
+            switch(action.type){ 
+                case 'PLUS': // 상태값
+                    return state +1 
+                case 'MINUS':
+                    return state -1;
+                default:
+                    return state // 원래값 되돌려줌     
+            }
+        }
+        ```
+
+    - Counter 함수 (reducer)함수를 가져와서 값변화 작업
+
+        ```jsx
+        function Counter(){
+            const [number, dispatch] = useReducer(reducer,0); // dispatch는 액션을 발생시키는 함수 plus,minus를 발생 
+
+            const Plus = () => {
+                console.log('1을 더합니다.');
+                dispatch({type:'PLUS'}); //type 객체 plus를 불러준다.
+            }
+            const Minus =() =>{ // 호출된 함수 실행
+                console.log('1을 뺍니다');
+                dispatch({type:'MINUS'});
+            }
+        ```
+
+    - return 작성 및 전역사용 선언
+
+        ```jsx
+        return(
+            <div>
+                <h2>{number}</h2>
+                <button onClick={Plus}>1 더하기</button>
+                <button onClick={Minus}>1 빼기</button> {/*함수를 호출*/ }
+            </div>
+        );
+        }
+        export default Counter;
+        ```
+
+    ---
