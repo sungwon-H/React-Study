@@ -1,22 +1,14 @@
-# React Day2 공부자료   
+# React Study Day2   
 <br/>
 
 ## Hooks 상태관리함수   
 
 <br/><br/>
+ 
+### useState, useRef, useEffcet 의 예제
 
-### useState, useRef, useEffcet 의 예제자료
-   
-<br/><br/>
+ <br/>
 
-- 설명 블로그 링크 : <https://develop-hsw9058.tistory.com/>
-
-
-
-
-<br/><br/>
-
-# 목차
 1. [InputTest_1](#inputtest1-예제)
 
 2. [InputTest_2](#inputtest2-예제)
@@ -28,26 +20,20 @@
 5. [UserList_2](#userlist2-예제) (추후 재 업로드 )
 
 
- 
-
 </br>
 
 - [**spread시트문법**](#스프레드시트-문법)
 
-</br>
-</br>
+</br></br>
+ 
+-  블로그 링크 : <https://develop-hsw9058.tistory.com/>
+
+
+
 
 ----
 
-</br>
-</br>
-</br>  
-
-
-
-
-
-
+</br></br></br>  
 
 ## InputTest1 예제
 
@@ -973,3 +959,4 @@
         [ '김사과', '오렌지', '반하나', '이메론' ]
         [ '김사과', '오렌지', '반하나', '이메론', '홍길동' ]
         ```
+--- 
