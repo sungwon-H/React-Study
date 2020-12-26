@@ -10,6 +10,7 @@
 5. [polished의 스타일 관련 유틸 함수 사용하기](#polished의-스타일-관련-유틸-함수-사용하기)
 6. [여러가지 사이즈의 버튼 생성](#여러가지-사이즈의-버튼-생성)
 7. [Button버튼 컴포넌트에 outline 추가](#button버튼-컴포넌트에-outline-추가)
+8. [Button버튼 컴포넌트에 fullWidth 추가](#button버튼-컴포넌트에-fullwidth-추가)
 
 ---
 <br/>
@@ -1192,4 +1193,219 @@ npm i polished
     export default App;
     ```
 
-    [
+    ---
+<br/>
+
+### Button버튼 컴포넌트에 fullWidth 추가
+
+- 버튼의 크기가 100%인 fullWidth라는 props 생성
+
+---
+
+- **Button.js**
+
+    ```jsx
+    import React from 'react';
+    import styled, { css } from 'styled-components';
+    import { darken, lighten } from 'polished';
+
+    const colorStyles = css`
+        ${({ theme, color }) => {
+            const selected = theme.palette[color];
+            return css`
+            background: ${selected};
+            &:hover {
+                background: ${lighten(0.1, selected)};
+            }
+            &:active {
+                background: ${darken(0.1, selected)};
+            }
+            ${props => 
+               props.outline && 
+            css`
+                color: ${selected};
+                background: none;
+                border: 1px solid ${selected};
+                &:hover {
+                    background: ${selected};
+                    color: white;
+                }
+            `}
+            `;
+        }}
+    `;
+    const sizes = {
+        large: {
+          height: '3rem',
+          fontSize: '1.25rem'
+        },
+        medium: {
+          height: '2.25rem',
+          fontSize: '1rem'
+        },
+        small: {
+          height: '1.75rem',
+          fontSize: '0.875rem'
+        }
+      };
+
+    const sizeStyles = css` // 사이즈 스타일 생성 
+        ${({size})=> css`
+        height: ${sizes[size].height};
+        font-size: ${sizes[size].fontSize};
+        
+        `}
+    `;
+    const fullWidthStyle = css`
+      ${props =>
+        props.fullWidth &&
+        css`
+          width: 100%;
+          justify-content: center;
+          & + & {
+            margin-left: 0;
+            margin-top: 1rem;
+          }
+        `}
+    `;
+    const StyledButton = styled.button`
+      /* 공통 스타일 */
+      display: inline-flex;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      /* 크기 */
+        ${sizeStyles}
+
+      /* 색상 */
+        ${colorStyles}
+
+      /* 기타 */
+      & + & {
+        margin-left: 1rem;
+      }
+     ${fullWidthStyle} 
+    `;
+
+    function Button({ children, color, size, outline, fullWidth, ...rest }) {
+      return <StyledButton color={color} size={size} outline={outline} fullWidth={fullWidth} {...rest}>
+          {children}
+          </StyledButton>;
+    }
+
+    Button.defaultProps = {
+      color: 'blue',
+      size: 'medium'
+    };
+
+    export default Button;
+    ```
+
+    - 추가된부분
+
+        ```jsx
+        const fullWidthStyle = css`
+          ${props =>
+            props.fullWidth &&
+            css`
+              width: 100%;
+              justify-content: center;
+              & + & {
+                margin-left: 0;
+                margin-top: 1rem;
+              }
+            `}
+        `;
+        ```
+
+- **App.js**
+
+    ```jsx
+    import React from 'react';
+    import styled, { ThemeProvider } from 'styled-components';
+    import Button from './components/Button';
+
+    const AppBlock = styled.div`
+      width: 512px;
+      margin: 0 auto;
+      margin-top: 4rem;
+      border: 1px solid black;
+      padding: 1rem;
+    `;
+
+    const ButtonGroup = styled.div`
+      & + & {
+        margin-top: 1rem;
+      }
+    `;
+
+    function App() {
+      return (
+        <ThemeProvider
+          theme={{
+            palette: {
+              blue: '#228be6',
+              gray: '#495057',
+              pink: '#f06595'
+            }
+          }}
+        >
+          <AppBlock>
+            <ButtonGroup>
+              <Button size="large">BUTTON</Button>
+              <Button>BUTTON</Button>
+              <Button size="small">BUTTON</Button>
+            </ButtonGroup>
+            <ButtonGroup>
+              <Button color="gray" size="large">
+                BUTTON
+              </Button>
+              <Button color="gray">BUTTON</Button>
+              <Button color="gray" size="small">
+                BUTTON
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup>
+              <Button color="pink" size="large">
+                BUTTON
+              </Button>
+              <Button color="pink">BUTTON</Button>
+              <Button color="pink" size="small">
+                BUTTON
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup>
+              <Button size="large" outline>
+                BUTTON
+              </Button>
+              <Button color="gray" outline>
+                BUTTON
+              </Button>
+              <Button color="pink" size="small" outline>
+                BUTTON
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup>
+              <Button size="large" fullWidth>
+                BUTTON
+              </Button>
+              <Button size="large" color="gray" fullWidth>
+                BUTTON
+              </Button>
+              <Button size="large" color="pink" fullWidth>
+                BUTTON
+              </Button>
+            </ButtonGroup>
+          </AppBlock>
+        </ThemeProvider>
+      );
+    }
+
+    export default App;
+    ```
