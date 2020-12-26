@@ -35,9 +35,9 @@ function App() {
           <Button size="small">BUTTON</Button>
         </ButtonGroup>
         <ButtonGroup>
-          <Button color="gray" size="large">BUTTON</Button>
-          <Button color="gray">BUTTON</Button>
-          <Button color="gray" size="small">BUTTON</Button>
+          <Button color="gray" size="large" outline>BUTTON</Button>
+          <Button color="gray" outline>BUTTON</Button>
+          <Button color="gray" size="small" outline>BUTTON</Button>
         </ButtonGroup>
         <ButtonGroup>
           <Button color="pink" size="large">BUTTON</Button>
