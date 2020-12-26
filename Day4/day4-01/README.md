@@ -8,6 +8,7 @@
 3. [styled-components 예제](#styled-components-예제)
 4. [버튼 만들기 예제](#버튼-만들기-예제)
 5. [polished의 스타일 관련 유틸 함수 사용하기](#polished의-스타일-관련-유틸-함수-사용하기)
+6. [여러가지 사이즈의 버튼 생성](#여러가지-사이즈의-버튼-생성)
 
 ---
 <br/>
@@ -591,3 +592,418 @@ npm i polished
         ```
 
 ---
+
+</br>
+
+- **Button 컴포넌트 코드 리팩토링**
+
+    - **Button.js**
+
+        ```jsx
+        import React from 'react';
+        import styled, { css } from 'styled-components';
+        import { darken, lighten } from 'polished';
+
+        const StyledButton = styled.button`
+          /* 공통 스타일 */
+          display: inline-flex;
+          outline: none;
+          border: none;
+          border-radius: 4px;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          padding-left: 1rem;
+          padding-right: 1rem;
+
+          /* 크기 */
+          height: 2.25rem;
+          font-size: 1rem;
+          padding-top: 10px;
+
+          /* 색상 */
+          ${({theme, color}) => {
+              const selected = theme.pallette[color];
+              return css`
+              background: ${selected};
+              &:hover {
+                background: ${lighten(0.1, selected)};
+              }
+              &:active {
+                background: ${darken(0.1, selected)};
+              }
+            `;  
+              
+          }}
+
+          /* 기타 */
+          & + & {
+            margin-left: 1rem;
+          }
+        `;
+
+        function Button({ children, color, ...rest }) {
+          return <StyledButton color={color} {...rest}>{children}</StyledButton>;
+        }
+
+        Button.defaultProps = {
+          color: 'blue'
+        };
+
+        export default Button;
+        ```
+
+        - 리액트 사용 및 styled-components라이브러리 사용 및 polished 라이브러리 사용
+
+            ```jsx
+            import React from 'react';
+            import styled, { css } from 'styled-components';
+            import { darken, lighten } from 'polished';
+
+            ```
+
+        - styled-components라이브러리로 스타일링한 스타일버튼
+        - props.theme.palette.blue 이런식으로 값을 조회하는 대신에 비구조화 할당 문법을 사용하여 가독성을 높여주었습니다
+
+            ```jsx
+            const StyledButton = styled.button`
+              /* 공통 스타일 */
+              display: inline-flex;
+              outline: none;
+              border: none;
+              border-radius: 4px;
+              color: white;
+              font-weight: bold;
+              cursor: pointer;
+              padding-left: 1rem;
+              padding-right: 1rem;
+
+              /* 크기 */
+              height: 2.25rem;
+              font-size: 1rem;
+              padding-top: 10px;
+
+              /* 색상 */
+              ${({theme, color}) => {
+                  const selected = theme.pallette[color];
+                  return css`
+                  background: ${selected};
+                  &:hover {
+                    background: ${lighten(0.1, selected)};
+                  }
+                  &:active {
+                    background: ${darken(0.1, selected)};
+                  }
+                `;  
+                  
+              }}
+
+              /* 기타 */
+              & + & {
+                margin-left: 1rem;
+              }
+            `;
+            ```
+
+        - 버튼 함수 및 버튼 기본 색상, 외부 사용 선언
+
+            ```jsx
+            function Button({ children, color, ...rest }) {
+              return <StyledButton color={color} {...rest}>{children}</StyledButton>;
+            }
+
+            Button.defaultProps = {
+              color: 'blue'
+            };
+
+            export default Button;
+            ```
+
+    - 위 코드를 색상에 관련된 코드를 분리하여 사용 할 수도 있습니다 (유지보수에 좋다 )
+
+        ```jsx
+        import React from 'react';
+        import styled, { css } from 'styled-components';
+        import { darken, lighten } from 'polished';
+
+        const colorStyles = css`
+            ${({ theme, color }) => {
+                const selected = theme.palette[color];
+                return css`
+                background: ${selected};
+                &:hover {
+                    background: ${lighten(0.1, selected)};
+                }
+                &:active {
+                    background: ${darken(0.1, selected)};
+                }
+                `;
+            }}
+        `
+
+        const StyledButton = styled.button`
+          /* 공통 스타일 */
+          display: inline-flex;
+          outline: none;
+          border: none;
+          border-radius: 4px;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          padding-left: 1rem;
+          padding-right: 1rem;
+
+          /* 크기 */
+          height: 2.25rem;
+          font-size: 1rem;
+          padding-top: 10px;
+
+          /* 색상 */
+            ${colorStyles}
+          /* 기타 */
+          & + & {
+            margin-left: 1rem;
+          }
+        `;
+
+        function Button({ children, color, ...rest }) {
+          return <StyledButton color={color} {...rest}>{children}</StyledButton>;
+        }
+
+        Button.defaultProps = {
+          color: 'blue'
+        };
+
+        export default Button;
+        ```
+---
+
+### 여러가지 사이즈의 버튼 생성
+
+- sizeprops를 설정하여 다양한 크기의 버튼 생성
+    - **Button.js**
+
+        ```jsx
+        import React from 'react';
+        import styled, { css } from 'styled-components';
+        import { darken, lighten } from 'polished';
+
+        const colorStyles = css`
+            ${({ theme, color }) => {
+                const selected = theme.palette[color];
+                return css`
+                background: ${selected};
+                &:hover {
+                    background: ${lighten(0.1, selected)};
+                }
+                &:active {
+                    background: ${darken(0.1, selected)};
+                }
+                `;
+            }}
+        `
+        const sizeStyles = css` // 사이즈 스타일 생성 
+            ${props =>
+                props.size === 'large' && css`
+                height: 3rem;
+                font-size: 1.25rem;   
+                padding-top: 10px;   
+                `}
+             ${props =>
+                props.size === 'medium' && css`
+                height: 2.25rem;
+                font-size: 1rem;    
+                padding-top: 10px;   
+                `}
+             ${props =>
+                props.size === 'small' && css`
+                height: 1.75rem;
+                font-size: 0.875rem; 
+                padding-top: 5px;      
+                `}
+        `;
+        const StyledButton = styled.button`
+          /* 공통 스타일 */
+          display: inline-flex;
+          outline: none;
+          border: none;
+          border-radius: 4px;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          padding-left: 1rem;
+          padding-right: 1rem;
+
+          /* 크기 */
+            ${sizeStyles}
+
+          /* 색상 */
+            ${colorStyles}
+
+          /* 기타 */
+          & + & {
+            margin-left: 1rem;
+          }
+        `;
+
+        function Button({ children, color, size, ...rest }) {
+          return <StyledButton color={color} size={size} {...rest}>{children}</StyledButton>;
+        }
+
+        Button.defaultProps = {
+          color: 'blue'
+        };
+
+        export default Button;
+        ```
+
+        - sizeStyles에 해당하는 코드를 따로 분리하지 않고 StyledButton의 스타일 내부에 바로 적어도 상관은 없다.
+
+  </br>
+
+    - **App.js(버튼 렌더링)**
+
+        ```jsx
+        import React from 'react';
+        import styled, { ThemeProvider } from 'styled-components';
+        import Button from './components/Button';
+
+        const AppBlock = styled.div`
+          width: 512px;
+          margin: 0 auto;
+          margin-top: 4rem;
+          border: 1px solid black;
+          padding: 1rem;
+        `;
+
+        const ButtonGroup = styled.div`
+          & + & {
+            margin-top: 1rem;
+          }
+        `;
+
+        function App() {
+          return (
+            <ThemeProvider
+              theme={{
+                palette: {
+                  blue: '#228be6',
+                  gray: '#495057',
+                  pink: '#f06595'
+                }
+              }}
+            >
+              <>
+              <AppBlock>
+              <ButtonGroup>
+                  <Button size="large">BUTTON</Button>
+                  <Button>BUTTON</Button>
+                  <Button size="small">BUTTON</Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button color="gray" size="large">BUTTON</Button>
+                  <Button color="gray">BUTTON</Button>
+                  <Button color="gray" size="small">BUTTON</Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button color="pink" size="large">BUTTON</Button>
+                  <Button color="pink">BUTTON</Button>
+                  <Button color="pink" size="small">BUTTON</Button>
+                </ButtonGroup>
+              </AppBlock>
+              </>
+            </ThemeProvider>
+          );
+        }
+
+        export default App;
+        ```
+
+        - ButtonGroup 이라는 컴포넌트를 만들어서 서로간의 여백을 1rem 으로 설정해주면 버튼끼리 떨어진다.
+
+---
+
+- **코드리팩토링**
+
+    - **Button.js**
+
+        ```jsx
+        import React from 'react';
+        import styled, { css } from 'styled-components';
+        import { darken, lighten } from 'polished';
+
+        const colorStyles = css`
+            ${({ theme, color }) => {
+                const selected = theme.palette[color];
+                return css`
+                background: ${selected};
+                &:hover {
+                    background: ${lighten(0.1, selected)};
+                }
+                &:active {
+                    background: ${darken(0.1, selected)};
+                }
+                `;
+            }}
+        `;
+        const sizes = {
+            large: {
+              height: '3rem',
+              fontSize: '1.25rem'
+            },
+            medium: {
+              height: '2.25rem',
+              fontSize: '1rem'
+            },
+            small: {
+              height: '1.75rem',
+              fontSize: '0.875rem'
+            }
+          };
+
+        const sizeStyles = css` // 사이즈 스타일 생성 
+            ${({size})=> css`
+            height: ${sizes[size].height};
+            font-size: ${sizes[size].fontSize};
+            
+            `}
+        `;
+        const StyledButton = styled.button`
+          /* 공통 스타일 */
+          display: inline-flex;
+          outline: none;
+          border: none;
+          border-radius: 4px;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          padding-left: 1rem;
+          padding-right: 1rem;
+
+          /* 크기 */
+            ${sizeStyles}
+
+          /* 색상 */
+            ${colorStyles}
+
+          /* 기타 */
+          & + & {
+            margin-left: 1rem;
+          }
+        `;
+
+        function Button({ children, color, size, ...rest }) {
+          return <StyledButton color={color} size={size} {...rest}>
+              {children}
+              </StyledButton>;
+        }
+
+        Button.defaultProps = {
+          color: 'blue',
+          size: 'medium'
+        };
+
+        export default Button;
+        ```
+
+ ---
