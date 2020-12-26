@@ -1,7 +1,16 @@
 # React Study Day4  
 <br/>
 
-### styled-component
+## 목차
+
+1. [styled-component](#styled-component)
+2. [npm 설치](#npm-설치)
+3. [styled-components 예제](#styled-components-예제)
+4. 
+---
+<br/>
+
+## styled component
 
 - CSS in JS 기술을 사용하는 라이브러리입니다.(JS안에CSS를 작성하는 것을 의미)
 - styled-components는 현존하는 CSS in JS 관련 리액트 라이브러리 중에서 가장 인기 있는 라이브러리 입니다.
@@ -16,7 +25,7 @@
 npm i styled-components
 ```
 ---
-- **styled-components 예제**
+- **styled components 예제**
     - **App.js**
 
         ```jsx
@@ -69,7 +78,7 @@ npm i styled-components
 ---
 </br>
 
-- **위에 코드에서** **Circle 컴포넌트에 color이라는 props 추가 예제**
+- **Circle 컴포넌트에 color props 추가 예제**
     - **App.js**
 
         ```jsx
@@ -118,5 +127,66 @@ npm i styled-components
             }
             export default App;
             ```
+---
+<br/>
 
-       
+- **Circle 컴포넌트에 huge라는 props 설정 예제**
+    - **App.js**
+
+        ```jsx
+        import React from 'react';
+        import styled,{ css } from 'styled-components'; // 스타일 컴포넌트 라이브러리 
+
+        const Circle = styled.div`
+          width: 5rem;
+          height: 5rem;
+          background: ${props => props.color || 'black'};
+          border-radius: 50%;
+          ${props => 
+            props.huge && css`
+              width: 10rem;
+              height: 10rem;
+            `}
+        `;
+
+        function App(){
+          return <Circle color='red' huge/>;
+        }
+        export default App;
+        ```
+
+        - 리액트 사용 및 styled-components 라이브러리 사용 css 여러줄 사용할 경우 {css} 추가
+
+            ```jsx
+            import React from 'react';
+            import styled,{ css } from 'styled-components'; // 스타일 컴포넌트 라이브러리 
+            ```
+
+        - Circle 컴포넌트
+            - 여러 줄의 css 코드를 조건부로 보이고 싶다면 css를 사용해야한다.
+            - css를 불러와서 사용을 해야만 그 스타일 내부에서도 다른 props를 조회 할 수 있습니다.
+
+            ```jsx
+            const Circle = styled.div`
+              width: 5rem;
+              height: 5rem;
+              background: ${props => props.color || 'black'};
+              border-radius: 50%;
+              ${props => 
+                props.huge && css`
+                  width: 10rem;
+                  height: 10rem;
+                `}
+            `;
+
+            ```
+
+            - 컴포넌트 적용 및 외부 사용 선언
+
+                ```jsx
+                function App(){
+                  return <Circle color='red' huge/>;
+                }
+                export default App;
+                ```
+---
