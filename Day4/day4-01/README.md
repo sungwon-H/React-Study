@@ -6,7 +6,7 @@
 1. [styled-component](#styled-component)
 2. [npm 설치](#npm-설치)
 3. [styled-components 예제](#styled-components-예제)
-4. 
+4. [버튼 만들기 예제](#버튼-만들기-예제)
 ---
 <br/>
 
@@ -25,7 +25,7 @@
 npm i styled-components
 ```
 ---
-- **styled components 예제**
+- ### styled components 예제
     - **App.js**
 
         ```jsx
@@ -189,4 +189,173 @@ npm i styled-components
                 }
                 export default App;
                 ```
+---
+
+<br/>
+
+### 버튼 만들기 예제
+
+- 이전 Sass 를 배울 때 만들었던 재사용성 높은 Button 컴포넌트를 styled-components로 구현
+
+---
+
+- **src/components/Button.js**
+
+    ```jsx
+    import React from 'react';
+    import styled from 'styled-components';
+
+     // 버튼 css 
+    const StyledButton = styled.button`
+            /* 공통 스타일 */
+            display: inline-flex;
+            outline: none;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            padding-left: 1rem;
+            padding-right: 1rem;
+
+            /* 크기 */
+            height: 2.25rem;
+            font-size: 1rem;
+
+            /* 색상 */
+            background: #228be6;
+            &:hover {
+            background: #339af0;
+            }
+            &:active {
+            background: #1c7ed6;
+            }
+
+            /* 기타 */
+            & + & {
+            margin-left: 1rem;
+            }
+    `;
+
+    function Button({ children, ...rest}) {
+        return <StyledButton {...rest}>{children}</StyledButton>;
+    }
+
+    export default Button;
+    ```
+
+    - 리액트 사용 및 styled-components 라이브러리 사용 선언
+
+        ```jsx
+        import React from 'react';
+        import styled from 'styled-components';
+        ```
+
+    - styled-components를 사용한 버튼 css
+
+        ```jsx
+         // 버튼 css 
+        const StyledButton = styled.button`
+                /* 공통 스타일 */
+                display: inline-flex;
+                outline: none;
+                border: none;
+                border-radius: 4px;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+                padding-left: 1rem;
+                padding-right: 1rem;
+
+                /* 크기 */
+                height: 2.25rem;
+                font-size: 1rem;
+
+                /* 색상 */
+                background: #228be6;
+                &:hover {
+                background: #339af0;
+                }
+                &:active {
+                background: #1c7ed6;
+                }
+
+                /* 기타 */
+                & + & {
+                margin-left: 1rem;
+                }
+        `;
+        ```
+
+    - Button components 함수 및 외부 사용 선언
+
+        ```jsx
+        function Button({ children, ...rest}) {
+            return <StyledButton {...rest}>{children}</StyledButton>;
+        }
+
+        export default Button;
+        ```
+
+- **App.js**
+
+    ```jsx
+    import React from 'react';
+    import styled from 'styled-components'; // 스타일 컴포넌트 라이브러리 
+    import Button from './components/Button';
+
+    const AppBlock = styled.div` // 테두리 
+        width: 512px;
+        margin: 0 auto;
+        margin-top: 4rem;
+        border: 1px solid black;
+        padding: 1rem;
+    `;
+
+    function App(){
+      return(
+        <AppBlock>
+          <Button>BUTTON</Button>
+        </AppBlock>
+      );
+    }
+    export default App;
+    ```
+
+    - 리액트 모듈 선언 및 styled-components라이브러리, Button 컴포넌트 사용 선언
+
+        ```jsx
+        import React from 'react';
+        import styled from 'styled-components'; // 스타일 컴포넌트 라이브러리 
+        import Button from './components/Button';
+
+        ```
+
+    - styled-components로 만든 버튼 바깥 테두리
+
+        ```jsx
+        const AppBlock = styled.div` // 테두리 
+            width: 512px;
+            margin: 0 auto;
+            margin-top: 4rem;
+            border: 1px solid black;
+            padding: 1rem;
+        `;
+        ```
+
+    - App 함수 및 외부 사용 선언
+
+        ```jsx
+        function App(){
+          return(
+            <AppBlock>
+              <Button>BUTTON</Button>
+            </AppBlock>
+          );
+        }
+        export default App;
+        ```
+
+   
+
 ---
