@@ -67,3 +67,56 @@ npm i styled-components
             export default App;
             ```
 ---
+</br>
+
+- **위에 코드에서** **Circle 컴포넌트에 color이라는 props 추가 예제**
+    - **App.js**
+
+        ```jsx
+        import React from 'react';
+        import styled from 'styled-components'; // 스타일 컴포넌트 라이브러리 
+
+        const Circle = styled.div`
+          width: 5rem;
+          height: 5rem;
+          background: ${props => props.color || 'black'}; // Circle 컴포넌트에서 color props 값을 설정 해줬다면 해당 값을 배경색으로 지정하고, 그렇지 않다면 검정색으로 설정 
+          border-radius: 50%;
+        `;
+
+        function App(){
+          return <Circle color='blue'/>;
+        }
+        export default App;
+        ```
+
+        - 리액트 사용 선언 및 styled-components 라이브러리 사용
+
+            ```jsx
+            import React from 'react';
+            import styled from 'styled-components'; // 스타일 컴포넌트 라이브러리 
+            ```
+
+        - Circle 컴포넌트에 props추가
+        - color props 값을 설정해줬으면 해당 값을 배경색으로 설정하고, 그렇지 않으면 검정색을 배경색으로 사용하도록 설정되었습니다.
+
+            ```jsx
+            const Circle = styled.div`
+              width: 5rem;
+              height: 5rem;
+              background: ${props => props.color || 'black'}; // Circle 컴포넌트에서 color props 값을 설정 해줬다면 해당 값을 배경색으로 지정하고, 그렇지 않다면 검정색으로 설정 
+              border-radius: 50%;
+            `;
+
+            ```
+
+        - 컴포넌트 적용 및 외부 사용 선언
+            - Circle color='blue'부분을 설정하지 않으면 black이다.
+
+            ```jsx
+            function App(){
+              return <Circle color='blue'/>;
+            }
+            export default App;
+            ```
+
+       
