@@ -8,7 +8,7 @@
 ### [목차]
 
 1. [배경색 지정](#페이지에-회색-배경색상-적용)
-2.
+2. [Todo Template 컴포넌트 생성](#todo-template-만들기)
 3.
 
 --- 
@@ -82,3 +82,80 @@ function App(){
 
 export default App;
 ```
+
+---
+<br/>
+
+### Todo Template 만들기
+
+- Todo Template 컴포넌트를 만들어서 중앙에 정렬된 흰색 박스를 보여주는 역할 입니다.
+- src 디렉토리에 components 디렉토리를 만들고 그 안에 Todo Template.js 만든다.
+
+---
+
+<br/>
+
+- **Todo Template.js**
+
+    ```jsx
+    import React from 'react';
+    import styled from 'styled-components';
+
+    const TodoTemplateBlock = styled.div`
+        /* 배경*/
+        width : 512px;
+        height : 768px;
+
+        position : relative; // 추후 박스 하단에 추가 버튼을 위치시키기 위한 설정
+        background : white;
+        border-radius: 16px;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+
+        margin: 0 auto; // 페이지 중앙 
+        
+        margin-top: 96px;
+        mragin-bottom: 32px;
+        display : flex;
+        flex-direction: column;
+    `
+    function TodoTemplate({children}) {
+        return(
+            <TodoTemplateBlock>
+                {children}
+            </TodoTemplateBlock>
+        );
+    }
+
+    export default TodoTemplate;
+    ```
+</br>
+
+- **App.js**
+
+    ```jsx
+    import React from 'react';
+    import {createGlobalStyle} from 'styled-components';
+    import TodoTemplate from './components/TodoTemplate'
+
+    const GlobalStyle = createGlobalStyle`
+     body{
+       background: #e9ecef
+     }
+    `
+    function App(){
+      return(
+        <>
+        
+        <GlobalStyle/>
+        <TodoTemplate>
+        
+        </TodoTemplate>
+        
+        </>
+      );
+    }
+
+    export default App;
+    ```
+
+   ---

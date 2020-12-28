@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const TodoTemplateBlock = styled.div`
     /* 배경*/
     width : 512px;
@@ -26,4 +27,4 @@ function TodoTemplate({children}) {
     );
 }
 
-export default TodoTemplateBlock;
+export default TodoTemplate;
