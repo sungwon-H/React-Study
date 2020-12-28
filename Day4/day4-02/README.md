@@ -9,8 +9,8 @@
 
 1. [배경색 지정](#페이지에-회색-배경색상-적용)
 2. [Todo Template 컴포넌트 생성](#todo-template-만들기)
-3.
-
+3. [TodoHead 만들기](#todohead-만들기)
+4. [TodoList 만들기](#todolist-만들기)
 --- 
 
 ### 컴포넌트 만들기
@@ -159,3 +159,162 @@ export default App;
     ```
 
    ---
+   </br>
+
+   ### TodoHead 만들기
+
+- 이 컴포넌트는 오늘의 날짜, 요일, 그리고 남은 할 일 개수를 보여줍니다.
+
+---
+
+</br>
+
+- **TodoHead.js**
+
+    ```jsx
+    import React from 'react';
+    import styled from 'styled-components';
+
+    const TodoHeadBlock = styled.div`
+      padding-top: 48px;
+      padding-left: 32px;
+      padding-right: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e9ecef;
+      h1 {
+        margin: 0;
+        font-size: 36px;
+        color: #343a40;
+      }
+      .day {
+        margin-top: 4px;
+        color: #868e96;
+        font-size: 21px;
+      }
+      .tasks-left {
+        color: #20c997;
+        font-size: 18px;
+        margin-top: 40px;
+        font-weight: bold;
+      }
+    `;
+
+    function TodoHead() {
+      return (
+        <TodoHeadBlock>
+          <h1>2019년 7월 10일</h1>
+          <div className="day">수요일</div>
+          <div className="tasks-left">할 일 2개 남음</div>
+        </TodoHeadBlock>
+      );
+    }
+
+    export default TodoHead;
+    ```
+
+    - 이 컴포넌트에서는 TodoHeadBlock 안에 들어있는 내용들에 대하여 일일이 컴포넌트를 만드는 대신에 그냥 일반 HTML 태그를 사용한다
+    - TodoHeadBlock의 스타일에서 CSS Selector를 사용하여  스타일링 해주었다.
+
+</br>
+
+- **App.js**
+
+    ```jsx
+    import React from 'react';
+    import { createGlobalStyle } from 'styled-components';
+    import TodoTemplate from './components/TodoTemplate';
+    import TodoHead from './components/TodoHead';
+
+    const GlobalStyle = createGlobalStyle`
+      body {
+        background: #e9ecef;
+      }
+    `;
+
+    function App() {
+      return (
+        <>
+          <GlobalStyle />
+          <TodoTemplate>
+            <TodoHead />
+          </TodoTemplate>
+        </>
+      );
+    }
+
+    export default App;
+    ```
+
+    
+---
+</br>
+
+### TodoList 만들기
+
+- 여러개의 할 일 항목을 보여주게 될 TodoList 를 만든다.
+
+---
+</br>
+
+- **TodoList.js**
+
+    ```jsx
+    import React from 'react';
+    import styled from 'styled-components';
+
+    const TodoListBlock = styled.div`
+        flex: 1;
+        padding: 20px 32px;
+        padding-bottom : 48px;
+        overflow-y: auto;
+        
+
+    `
+
+    function TodoList(){
+        return(
+            <TodoListBlock>
+                TodoList
+            </TodoListBlock>
+        )
+    }
+
+    export default TodoList;
+    ```
+
+    - 사이즈 설정
+    - flex:1은 자신이 차지 할 수 있는 영역을 꽉 채우도록 설정 완료
+
+</br>
+
+- **App.js**
+
+    ```jsx
+    import React from 'react';
+    import { createGlobalStyle } from 'styled-components';
+    import TodoTemplate from './components/TodoTemplate';
+    import TodoHead from './components/TodoHead';
+    import TodoList from './components/TodoList';
+
+    const GlobalStyle = createGlobalStyle`
+      body {
+        background: #e9ecef;
+      }
+    `;
+
+    function App() {
+      return (
+        <>
+          <GlobalStyle />
+          <TodoTemplate>
+            <TodoHead />
+            <TodoList />
+          </TodoTemplate>
+        </>
+      );
+    }
+
+    export default App;
+    ```
+
+--- 
