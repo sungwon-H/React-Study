@@ -12,6 +12,7 @@
 3. [TodoHead 만들기](#todohead-만들기)
 4. [TodoList 만들기](#todolist-만들기)
 5. [TodoItem 만들기](#todoItem-만들기)
+6. [TodoCreate 만들기](#todocreate-만들기)
 --- 
 
 ### 컴포넌트 만들기
@@ -460,5 +461,155 @@ export default App;
     ```
 
 
+
+---
+
+<br>
+
+### TodoCreate 만들기
+
+- 이번에는 새로운 항목 등록 버튼 컴포넌트를 만들기
+- react-icons의 MdAdd를 사용
+- useState를 사용하여 토글 할 수 있는 open 값을 관리하며, 이 값이 true일때에는 아이콘을 45도 돌려서 x 표시와 색상 빨간색으로 변경
+
+---
+<br>
+
+- **TodoCreate.js**
+
+    ```jsx
+    import React, { useState } from 'react';
+    import styled, {css} from 'styled-components';
+    import {MdAdd} from 'react-icons/md'; // 아이콘 다운로드
+
+    const CircleButton = styled.button`
+        background: #38d9a9; // 기본 배경
+        &:hover{ // 마우스 갖다대면
+            background:#63e6be;
+        }
+        &:active{ 
+            background:#20c997;
+        }
+
+        z-index: 5;
+        cursor: pointer;
+        width: 80px;
+        height: 80px;
+        display: block;
+        align-items: center;
+        justify-content: center;
+        font-size: 60px;
+        position: absolute;
+        left: 50%;
+        bottom: 0px;
+        transform: translate(-50%, 50%);
+        color: white;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: 0.125s all ease-in;
+        ${props =>
+          props.open &&
+          css`
+            background: #ff6b6b;
+            &:hover {
+              background: #ff8787;
+            }
+            &:active {
+              background: #fa5252;
+            }
+            transform: translate(-50%, 50%) rotate(45deg);
+          `}
+      `;
+
+    const InsertFormPositioner= styled.div` // 폼 벽
+          width:100%;
+          bottom:0;
+          left: 0;
+          position: absolute;
+    `;
+
+    const InsertForm = styled.form` // 
+        background: #f8f9fa;
+        padding-left: 32px;
+        padding-top: 32px;
+        padding-right: 32px;
+        padding-bottom: 72px;
+
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        border-top: 1px solid #e9ecef;
+    `;
+
+    const Input = styled.input`
+      padding: 12px;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+      width: 100%;
+      outline: none;
+      font-size: 18px;
+      box-sizing: border-box;
+    `;
+
+    function TodoCreate(){
+        const [open, setOpen] =useState(false); // 
+
+        const onToggle = () => setOpen(!open);
+
+        return(
+            <>
+            {open && (
+                 <InsertFormPositioner>
+                 <InsertForm>
+                   <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
+                 </InsertForm>
+               </InsertFormPositioner>
+
+            )}
+            <CircleButton onClick={onToggle} open={open}>
+                <MdAdd/>
+            </CircleButton>
+            </>
+        );
+    }
+
+    export default TodoCreate;
+    ```
+
+- **App.js**
+
+    ```jsx
+    import React from 'react';
+    import {createGlobalStyle} from 'styled-components';
+    import TodoTemplate from './components/TodoTemplate'
+    import TodoHead from './components/TodoHead';
+    import TodoList from './components/TodoList';
+    import TodoCreate from './components/TodoCreate';
+    const GlobalStyle = createGlobalStyle`
+     body{
+       background: #e9ecef
+     }
+    `
+    function App(){
+      return(
+        <>
+        
+        <GlobalStyle/>
+        <TodoTemplate>
+          <TodoHead/>
+          <TodoList/>
+          <TodoCreate/>
+        </TodoTemplate>
+        
+        </>
+      );
+    }
+
+    export default App;
+    ```
 
 ---
