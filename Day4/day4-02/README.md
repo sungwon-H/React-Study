@@ -11,6 +11,7 @@
 2. [Todo Template 컴포넌트 생성](#todo-template-만들기)
 3. [TodoHead 만들기](#todohead-만들기)
 4. [TodoList 만들기](#todolist-만들기)
+5. [TodoItem 만들기](#todoItem-만들기)
 --- 
 
 ### 컴포넌트 만들기
@@ -318,3 +319,146 @@ export default App;
     ```
 
 --- 
+<br>
+
+### TodoItem 만들기
+
+- 이번 컴포넌트에서는 각 할 일 항목들을 보여주는 TodoItem 컴포넌트를 만들어 보겠습니다.
+- 이 컴포넌트에서 react-icons의 MdDone과 MdDelete 아이콘을 사용합니다.
+
+---
+<br>
+
+- **TodoItem.js**
+
+    ```jsx
+    import React from 'react';
+    import styled, {css} from 'styled-components';
+    import {MdDone, MdDelete} from 'react-icons/md';
+
+    const Remove = styled.div` // 삭제버튼 
+        display: flex;
+        aligin-items: center;
+        justify-content: center;
+        color: #dee2e6;
+        font-size: 24px;
+        cursor:pointer;
+        &:hover{
+            color: #ff6b6b;
+        }
+        display:none;
+
+    `
+    const TodoItemBlock = styled.div` 
+        display:flex;
+        align-items: center;
+        padding-top:12px;
+        padding-bottom:12px;
+        &:hover{
+            ${Remove}{
+                display:inital;
+            }
+        }
+    `;
+
+    const CheckCircle = styled.div` // 체크버튼
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        border: 1px solid #ced4da;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        cursor: pointer;
+        ${props => 
+        props.done && // 체크 표시 
+            css`
+                border:1px solid #38d9a9;
+                color: #38d9a9;
+            `}
+
+    `
+
+    const Text = styled.div` // 글
+        flex: 1;
+        font-size: 21px;
+        color: #495057;
+        ${props => // 체크가 되면 흐릿하게 글자체가 흐릿하게 바뀜
+            props.done &&
+            css`
+            color: #ced4da;
+            `}
+    `;
+
+    function TodoItem({id, done, text}){
+        return(
+            <TodoItemBlock>
+                <CheckCircle done={done}>
+                    {done && <MdDone/>}
+                </CheckCircle>
+                <Text done={done}>
+                    {text}
+                </Text>
+                <Remove>
+                    <MdDelete />
+                </Remove>
+            </TodoItemBlock>
+        )
+    }
+
+    export default TodoItem;
+    ```
+
+    - TodoItemBlock의 코드에서 Component Selector이라는 기능을 사용했다.
+    - 이 스타일은 TodoItemBlock 위에 커서가 있을 때, Remove 컴포넌트를 보여주라는 의미를 가진다.
+
+        ```jsx
+        const TodoItemBlock = styled.div` 
+            display:flex;
+            align-items: center;
+            padding-top:12px;
+            padding-bottom:12px;
+            &:hover{
+                ${Remove}{
+                    display:inital;
+                }
+            }
+        `;
+        ```
+<br>
+
+- **TodoList.js**
+
+    ```jsx
+    import React from 'react';
+    import styled from 'styled-components';
+    import TodoItem from './TodoItem';
+
+    const TodoListBlock = styled.div`
+        flex: 1;
+        padding: 20px 32px;
+        padding-bottom : 48px;
+        overflow-y: auto;
+       
+
+    `
+
+    function TodoList(){
+        return(
+            <TodoListBlock>
+                <TodoItem text="프로젝트 생성하기" done={false}></TodoItem>
+                <TodoItem text="컴포넌트 스타일링" done={true}></TodoItem>
+                <TodoItem text="Context 만들기" done={true}></TodoItem>
+                <TodoItem text="기능 구현하기" done={true}></TodoItem>
+            </TodoListBlock>
+        )
+    }
+
+    export default TodoList;
+    ```
+
+
+
+---
